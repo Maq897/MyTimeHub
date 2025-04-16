@@ -7,7 +7,7 @@
 }
 
 .login-container {
-  background: white;
+  background: var(--third-background);
   padding: 2rem;
   border-radius: 1rem;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
@@ -28,7 +28,9 @@
   border-radius: 0.5rem;
   font-size: 1rem;
 }
-
+.login-container p {
+  color: var(--text-color);
+}
 .login-container button {
   width: 100%;
   padding: 10px;
@@ -57,9 +59,4 @@
   overflow-y: auto;
   overflow-x: hidden;
   transition: height 0.5s ease;
-}
-#message {
-  margin-top: 1rem;
-  color: #e11d48;
-  font-weight: bold;
 }

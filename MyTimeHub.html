@@ -78,6 +78,7 @@
 
     <div id="topper">
       <h1>Home Page</h1>
+      <p id="msg">Good Evening</p>
       <div id="openCloseDiv">
         <button id="Minimize" onclick="closesidebarbtn()">Minimize</button>
       </div>
@@ -109,6 +110,17 @@
     }
   }, 5000);
 
+</script>
+<script>
+  function y() {
+    const userData = localStorage.getItem('user')
+    const actualData = JSON.parse(userData)
+    const msg = document.getElementById('msg')
+    msg.innerHTML = `Hello ${actualData.username}!`
+    
+  }
+
+  y()
 </script>
 </body>
 </html>
