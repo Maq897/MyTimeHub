@@ -1,0 +1,10 @@
+#Minimize {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  background: transparent;
+  border: 0px solid black;
+  color: var(--text-color);
+  font-weight: bolder;
+  cursor: pointer;
+}
