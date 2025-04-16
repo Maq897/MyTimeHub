@@ -5,7 +5,7 @@ window.addEventListener('load', function() {
   // Hide the loading screen and show the content
   setTimeout(() => {
     loadingScreen.style.display = 'none';
-    console.log('%c -Page Loaded Successfully-', 'background: green; color: white; font-size: 20px; font-weight: bold;')
+    console.log('%c-Page Loaded Successfully-', 'background: green; color: white; font-size: 20px; font-weight: bold; border-radius: 5px;')
   },400)
   
 });

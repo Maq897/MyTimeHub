@@ -247,7 +247,7 @@ nav a.accent-link {
 /* the quotes */
 
 #message {
-  width: fit-content;
+  width: 600px;
   height: fit-content;
   margin-top: 10px;
   margin-right: auto;
