@@ -6,9 +6,9 @@ function updateTime() {
 
   if(hours > 12) {
     hours -= 12
-    timeElement.textContent = `${hours}:${minutes} PM`
+    timeElement.innerHTML = `${hours}:${minutes} PM`
   } else {
-    timeElement.textContent = `${hours}:${minutes} AM`
+    timeElement.innerHTML = `${hours}:${minutes} AM`
   }
 
 }
@@ -20,6 +20,7 @@ updateTime()
 function closesidebarbtn() {
   let main = document.getElementById('main')
   main.style.height = '200px'
+  main.style.overflow = 'hidden'
   let openCloseDiv = document.getElementById('openCloseDiv')
   .innerHTML = `<button id="Minimize" onclick="opensidebarbtn()">Maximize</button>`
 }
@@ -27,6 +28,7 @@ function closesidebarbtn() {
 function opensidebarbtn() {
 let main = document.getElementById('main')
   main.style.height = '500px'
+  main.style.overflow = 'auto'
   let openCloseDiv = document.getElementById('openCloseDiv')
   .innerHTML = `<button id="Minimize" onclick="closesidebarbtn()">Minimize</button>`
 }

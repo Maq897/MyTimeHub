@@ -243,3 +243,16 @@ nav a.accent-link {
   right: 10px;
   top: 10px;
 }
+
+/* the quotes */
+
+#message {
+  width: fit-content;
+  height: fit-content;
+  margin-top: 10px;
+  margin-right: auto;
+  background-color: var(--accent-color);
+  border: 1px solid var(--accent-color);
+  padding: 5px;
+  border-radius: 5px;
+}
