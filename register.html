@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link rel="stylesheet" href="Styles/LR.css">
+</head>
+<body>
+
+    <div class="container">
+        <h1>Register</h1>
+        <input type="text" id="firstName" placeholder="First Name" autocomplete="off" required>
+        <input type="text" id="lastName" placeholder="Last Name" autocomplete="off" required>
+        <input type="email" id="email" placeholder="Email" autocomplete="off" required>
+        <input type="text" id="username" placeholder="Username" autocomplete="off" required>
+        <input type="password" id="password" placeholder="Password" required>
+        <button id="registerButton">Register</button>
+        <div class="acc-switch"><p>Already have an account? <a href="login.html">Login</a></p></div>
+    </div>
+    <div class="pic1"></div>
+    <div class="pic2"></div>
+
+    <!-- Firebase CDN -->
+    <script type="module">
+        // Import the Firebase SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.5.0/firebase-app.js";
+        import { getAuth } from "https://www.gstatic.com/firebasejs/11.5.0/firebase-auth.js";
+        import { getDatabase } from "https://www.gstatic.com/firebasejs/11.5.0/firebase-database.js";
+      
+        // Your Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyBWefNr7a4k-iIJ_pwBK8CTol6WoqqwX2Q",
+            authDomain: "mytimehub-574cb.firebaseapp.com",
+            databaseURL: "https://mytimehub-574cb-default-rtdb.asia-southeast1.firebasedatabase.app/",
+            projectId: "mytimehub-574cb",
+            storageBucket: "mytimehub-574cb.firebasestorage.app",
+            messagingSenderId: "987808044688",
+            appId: "1:987808044688:web:38ca9171817d6a2ab12a15",
+            measurementId: "G-QNQEKK1V6Q"
+            };
+      
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const database = getDatabase(app);
+      
+        console.log("Firebase initialized:", app);
+      </script>
+    <script type="module" src="Javascript/register.js"></script>
+</body>
+</html>
