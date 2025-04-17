@@ -8,7 +8,7 @@
 }
 
 html{
-  font-family: 'Times New Roman', Times, serif;
+  font-family: sans-serif;
   color: var(--text-color);
   overflow-y: auto;
 }
@@ -31,6 +31,7 @@ body{
   max-height: 100dvh;
   width: 100%;
   background-color: var(--primary-color);
+  font-family: sans-serif;
 }
 
 
@@ -79,7 +80,12 @@ nav ul{
   display: flex;
 }
 
-nav li{display: flex;}
+nav li{
+  display: flex;
+  border: 0px solid black;
+  border-radius: 5px;
+  width: fit-content;
+}
 nav .home-li {
   margin-right: auto;
   display: flex;
