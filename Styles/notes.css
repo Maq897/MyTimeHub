@@ -13,8 +13,8 @@
   flex-direction: column;
   row-gap: 5px;
   position: absolute;
-  left: 1.8%;
-  top: 30%;
+  left: 10px;
+  top: 20%;
 }
 .stylers button{
   display: flex;
@@ -43,8 +43,8 @@
   border-radius: 5px;
   font-size: large;
   position: absolute;
-  top: 15px; 
-  right: 15px;
+  top: 7px; 
+  right: 7px;
   cursor: pointer;
 }
 .notesMain{
