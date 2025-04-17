@@ -1,14 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
 :root {
-    --base-clr:#11121a;
-    --line-clr:#42434a;
-    --hover-clr:#222533;
-    --text-clr:#e6e6ef;
-    --acent-clr:#5e63ff;
-    --secondary-text-clr:#b0b3c1;
-    --btn-hover-clr:hsl(240, 100%, 75%);
-    --btn-clr:hsl(240, 100%, 70%);
+    --primary-color: #11121a;
+    --hover-color: #272832;
+    --accent-color: #0071FF;
+    --text-color: #c9c9c9;
+    --third-background: #2c2c2c; /*apparently the "--" creates any variable*/
 }
 
 *{
@@ -19,7 +16,7 @@
 
 html{
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    line-height: 1.5rem;
+    background-image: url('Background.jpg');
 }
 body{
     display: flex;
@@ -42,7 +39,7 @@ body{
     top: 50vh;
     left: 50vw;
     transform: translate(-50%, -50%);
-
+    color: antiquewhite;
     /* background-color: red; */
     /* background-color: #989cff; */
     border-radius: 20px;
@@ -64,17 +61,17 @@ a {
 .container input{
     width: 100%;
     padding: 0.5rem;
-    border: 1px solid var(--line-clr);
+    border: 1px solid black;
     border-radius: 0.5rem;
-    background-color: var(--base-clr);
-    color: var(--text-clr);
+    background-color: whitesmoke;
+    color: black;
     font-size: 1rem;
     font-weight: 400;
     margin-bottom: 1rem;
 }
 .container button{
     width: 100%;
-    background-color: var(--btn-clr);
+    background-color: var(--accent-color);
     color: var(--text-clr);
     border: none;
     padding: 0.5rem 1rem;
@@ -97,43 +94,16 @@ a {
 .acc-switch{
     margin-top: 10px;
     font-size: 0.8rem;
-    color: var(--secondary-text-clr);
 }
 .acc-switch a{
-    color: var(--acent-clr);
+    color: var(--acent-color);
     text-decoration: none;
     transition: all 0.3s ease-in-out;
+    border: 0px solid black;
+    border-radius: 5px;
+    padding: 1.5px;
 }
 .acc-switch a:hover{
     text-decoration: underline;
 }
 
-.pic1{
-    position: absolute;
-    margin: 0;
-    top: 0;
-    left: 0;
-    width: 45em;
-    height: 45em;
-    z-index: -1;
-    background-color: red;
-
-    transform: rotate(78deg);
-    border-radius: 20%;
-    background-color: var(--acent-clr);
-}
-
-.pic2{
-    position: absolute;
-    margin: 0;
-    bottom: 0;
-    right: 0;
-    width: 30em;
-    height: 30em;
-    z-index: -1;
-    background-color: red;
-
-    transform: rotate(28deg);
-    border-radius: 20%;
-    background-color: var(--acent-clr);
-}
