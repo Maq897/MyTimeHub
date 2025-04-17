@@ -89,7 +89,8 @@
         const actualData = JSON.parse(userData)
       if(userData === null) {
         const loginContainer = document.getElementById('login-container')
-        loginContainer.innerHTML = `Then try <a href="register.html" style="color: white"> Register </a>"`
+        loginContainer.innerHTML = `Then try <a href="register.html" style="color: white"> Register </a><br>
+                                    or <a href="login.html">Login<a>`
       } else {
         const loginContainer = document.getElementById('login-container')
         loginContainer.innerHTML = `
