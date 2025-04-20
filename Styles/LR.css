@@ -16,7 +16,6 @@
 
 html{
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-image: url('Background.jpg');
 }
 body{
     display: flex;
