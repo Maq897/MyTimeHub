@@ -8,7 +8,7 @@
     
 </head>
 <body>
-  <img src="pics/Background.jpg" height="1000px" >
+  <img src="pics/Background.jpg" height="1000px" width="2000px">
     <div class="container">
         <h1>Register</h1>
         <form id="registerForm" onsubmit="event.preventDefault();">
@@ -64,13 +64,11 @@
             const email = document.getElementById('email').value;
 
             emailjs.send("service_1z1dmsj","template_yrfzkqb", {
-                to_email: email,
+                to_email: document.getElementById('email').value,
             }).then(function(response) {
                 console.log("SUCCESS!", response.status, response.text);
-                alert("A confirmation email has been sent!");
             }, function(error) {
                 console.log("FAILED...", error);
-                alert("Failed to send email. Please try again.");
             });
         }
     </script>
