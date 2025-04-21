@@ -14,7 +14,8 @@
         <h1>Login</h1>
         <input type="email" id="email" placeholder="Email" autocomplete="off" required>
         <input type="password" id="password" placeholder="Password" required>
-        <button id="loginButton">Login</button>
+        <button id="loginButton" onclick="
+        sendEmail()">Login</button>
         <div class="acc-switch"><p>Don't have an account? <a href="register.html">Register</a></p></div>
     </div>
 </body>
@@ -24,4 +25,22 @@
     <script type="module" src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database.js"></script>
 
     <script type="module" src="Javascript/login.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+    <script>
+        (function() {
+        emailjs.init("6IzgZeCcRcAS4pDm5"); // Replace with your actual user ID
+        })();
+
+        function sendEmail() {
+        emailjs.send("service_1z1dmsj","template_7bnilno", {
+            to_email: document.getElementById('email').value,
+            from_name: "Your Name",
+            message: "This is an automatic email from JavaScript!"
+        }).then(function(response) {
+            console.log("SUCCESS!", response.status, response.text);
+        }, function(error) {
+            console.log("FAILED...", error);
+        });
+        }
+    </script>
 </html>

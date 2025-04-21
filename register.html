@@ -15,11 +15,9 @@
         <input type="email" id="email" placeholder="Email" autocomplete="off" required>
         <input type="text" id="username" placeholder="Username" autocomplete="off" required>
         <input type="password" id="password" placeholder="Password" required>
-        <button id="registerButton">Register</button>
+        <button id="registerButton" onclick="sendEmail()">Register</button>
         <div class="acc-switch"><p>Already have an account? <a href="login.html">Login</a></p></div>
     </div>
-    <div class="pic1"></div>
-    <div class="pic2"></div>
 
     <!-- Firebase CDN -->
     <script type="module">
@@ -48,5 +46,22 @@
         console.log("Firebase initialized:", app);
     </script>
     <script type="module" src="Javascript/register.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+  <script>
+    (function() {
+      emailjs.init("6IzgZeCcRcAS4pDm5"); // Replace with your actual user ID
+    })();
+
+    function sendEmail() {
+      emailjs.send("service_1z1dmsj","template_yrfzkqb", {
+        to_email: document.getElementById('email').value,
+        from_name: "Your Name",
+      }).then(function(response) {
+        console.log("SUCCESS!", response.status, response.text);
+      }, function(error) {
+        console.log("FAILED...", error);
+      });
+    }
+  </script>
 </body>
 </html>
