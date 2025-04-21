@@ -11,7 +11,7 @@
   <img src="pics/Background.jpg" height="1000px" >
     <div class="container">
         <h1>Register</h1>
-        <form id="registerForm" onsubmit="event.preventDefault(); sendEmail();">
+        <form id="registerForm" onsubmit="event.preventDefault();">
             <input type="text" id="firstName" placeholder="First Name" autocomplete="off" required>
             <input type="text" id="lastName" placeholder="Last Name" autocomplete="off" required>
             <input type="email" id="email" placeholder="Email" autocomplete="off" required>
@@ -55,7 +55,7 @@
     <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
     <script>
         (function() {
-            emailjs.init("6IzgZeCcRcAS4pDm5"); // Replace with your actual user ID
+            emailjs.init("fA-1ghRJOmD7ZPuRN"); 
         })();
 
         function sendEmail() {
@@ -63,9 +63,8 @@
             const lastName = document.getElementById('lastName').value;
             const email = document.getElementById('email').value;
 
-            emailjs.send("service_1z1dmsj", "template_yrfzkqb", {
+            emailjs.send("service_1z1dmsj","template_yrfzkqb", {
                 to_email: email,
-                from_name: firstName + " " + lastName,
             }).then(function(response) {
                 console.log("SUCCESS!", response.status, response.text);
                 alert("A confirmation email has been sent!");
