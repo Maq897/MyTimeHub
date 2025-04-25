@@ -74,6 +74,9 @@ input, select, button {
   width: 100%;
   box-sizing: border-box;
 }
+input:focus-visible{
+  outline: 2px solid var(--accent-color)
+}
 #editor {
   min-height: 300px;
   border: 1px solid #ccc;

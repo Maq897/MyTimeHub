@@ -93,7 +93,7 @@
     <label for="docTitle" style="color: var(--text-color);">Document Title</label>
     <input type="text" id="docTitle" placeholder="Enter document name or title">
 
-    <div id="editor" contenteditable="true"></div>
+    <div id="editor" contenteditable="true" ></div>
 
     </div>
     <div id="external">
@@ -108,10 +108,10 @@
       </select>
       
     </div>
-    
-  </main>
-
   
+  </main>
+  
+    
   <script>
     function formatText(command) {
       document.execCommand(command, false, null);
@@ -126,6 +126,7 @@
   </script>
 
   <script>
+
     let docsDB = JSON.parse(localStorage.getItem('richDocs')) || {};
   
     function saveToStorage() {
@@ -188,6 +189,16 @@
     }
   
     populateDropdown();
+
+  </script>
+
+  <script>
+    window.addEventListener('keydown', event => {
+    if (event.key === "F1") {
+        alert('You have clicked', event.key)
+        event.preventDefault();
+    }
+    });
   </script>
 </body>
 </html>
