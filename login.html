@@ -5,6 +5,8 @@
     <title>Login</title>
     <link rel="stylesheet" href="Styles/LR.css">
     <link rel="shortcut icon" href="svgs/login_40dp_C9C9C9_FILL0_wght300_GRAD0_opsz40.svg" type="image/x-icon">
+
+    <script type="module" src="Javascript/Basics.js"></script>
 </head>
 
 
@@ -14,8 +16,9 @@
         <h1>Login</h1>
         <input type="email" id="email" placeholder="Email" autocomplete="off" required>
         <input type="password" id="password" placeholder="Password" required>
-        <button id="loginButton" onclick="
-        sendEmail()">Login</button>
+        <input type="text" id="OTP" placeholder="XXXXXXXXXXXXXXX" required style="display: none;">
+        <button id="loginButton" onclick="sendEmail()" style="display: block;">Send OTP</button>
+        <button id="checkOTPbutton" style="display: none;" onclick="checkOTP()">Login</button>
         <div class="acc-switch"><p>Don't have an account? <a href="register.html">Register</a></p></div>
     </div>
 </body>
@@ -27,18 +30,64 @@
     <script type="module" src="Javascript/login.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
     <script>
+        
+        function generateAlphaNumericOTP(length) {
+            const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+            let otp = '';
+            for (let i = 0; i < length; i++) {
+                otp += characters.charAt(Math.floor(Math.random() * characters.length));
+            }
+            return otp;
+        }
+
+        const OTP = generateAlphaNumericOTP(6)
+
+        function checkOTP() {
+            const otpInp = document.getElementById('OTP')
+            if(otpInp.value === OTP) {
+                alert('Login Succesful')
+                document.getElementById('loginButton').remove()
+                const con = document.getElementById('container')
+                window.location.href = 'profile.html'
+            } else {
+                alert('Wrong OTP')
+            }
+        }
+
         (function() {
         emailjs.init("fA-1ghRJOmD7ZPuRN"); 
         })();
-
         function sendEmail() {
-            emailjs.send("service_1z1dmsj","template_jt3mhvg", {
+            const now = new Date();            
+            const date = now.toISOString().split("T")[0];       // "2025-04-25"
+            const tim = now.toTimeString().split(" ")[0];      // "15:45:22"
+            const time = `${date} ${tim}`
+            
+
+            setTimeout(()=> {
+                generateAlphaNumericOTP(6)
+            },60000 * 15)
+
+            emailjs.send("service_1z1dmsj","template_vahoytd", {
             to_email: document.getElementById('email').value,
+            time: time,
+            OTP: OTP,
+
         }).then(function(response) {
             console.log("SUCCESS!", response.status, response.text);
+            document.getElementById("loginButton").style.display = 'none'
+            document.getElementById('OTP').style.display = 'block'
+            document.getElementById('checkOTPbutton').style.display = 'block'
         }, function(error) {
             console.log("FAILED...", error);
         });
-        }
+    }
+    
+        window.addEventListener('keydown', event => {
+            if (event.key.startsWith('F12')) {
+                alert('You are not allowed to open this console. this is a tool intended for Developers')
+                event.preventDefault();
+            }
+        });
     </script>
 </html>

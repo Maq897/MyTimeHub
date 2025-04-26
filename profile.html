@@ -10,7 +10,7 @@
   <script src="Javascript/logining.js"></script>
   <script src="Javascript/js.js" defer></script>
   <script src="Javascript/loader.js" defer></script>
-  <script src="Javascript/Basics.js" defer></script>
+  <script src="Javascript/Basics.js"></script>
 
   <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js" type="module"></script>
   <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js" type="module"></script>
@@ -81,25 +81,32 @@
     </div>
   </main>
 
-  <script>
-    function loginData() {
-        const userData = localStorage.getItem('user')
-        const actualData = JSON.parse(userData)
-      if(userData === null) {
-        const loginContainer = document.getElementById('login-container')
-        loginContainer.innerHTML = `Then try <a href="register.html" style="color: white"> Register </a><br>
-                                    or <a href="login.html">Login<a>`
-      } else {
-        const loginContainer = document.getElementById('login-container')
-        loginContainer.innerHTML = `
-        <p>Name: ${actualData.firstName}</p><br>
-        <p>G-Mail: ${actualData.email}</p><br>
-        <p>Username: ${actualData.username}</p>
-        <p style="margin-top: 5px"><a href="register.html">Add Account</a></p>`
-      }      
-    }
-
-    loginData()
-  </script>
+  
 </body>
+<script>
+  function loginData() {
+      const userData = localStorage.getItem('user')
+      const actualData = JSON.parse(userData)
+    if(userData === null) {
+      const loginContainer = document.getElementById('login-container')
+      loginContainer.innerHTML = `Then try <a href="register.html" style="color: white"> Register </a><br>
+                                  or <a href="login.html">Login<a>`
+    } else {
+      const loginContainer = document.getElementById('login-container')
+      loginContainer.innerHTML = `
+      <p>Name: ${actualData.firstName}</p><br>
+      <p>G-Mail: ${actualData.email}</p><br>
+      <p>Username: ${actualData.username}</p>
+      <p style="margin-top: 5px"><a href="register.html">Add Account</a></p>`
+    }      
+  }
+  
+  window.addEventListener('keydown', event => {
+    if (event.key.startsWith('F12')) {
+        alert('You are not allowed to open this console. this is a tool intended for Developers')
+        event.preventDefault();
+    }
+  });
+  loginData()
+</script>
 </html>

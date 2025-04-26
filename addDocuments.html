@@ -117,7 +117,7 @@
       document.execCommand(command, false, null);
     }
     function appendHr() {
-      const Docs = document.getElementById('content')
+      const Docs = document.getElementById('editor')
       const hr = document.createElement('hr')
       hr.style.marginTop = '5px'
       hr.style.marginBottom = '5px'
@@ -192,13 +192,13 @@
 
   </script>
 
-  <script>
-    window.addEventListener('keydown', event => {
-    if (event.key === "F1") {
-        alert('You have clicked', event.key)
+</body>
+<script>
+  window.addEventListener('keydown', event => {
+    if (event.key.startsWith('F12')) {
+        alert('You are not allowed to open this console. this is a tool intended for Developers')
         event.preventDefault();
     }
-    });
-  </script>
-</body>
+  });
+</script>
 </html>

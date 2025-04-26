@@ -43,11 +43,12 @@ document.getElementById("loginButton").addEventListener("click", function () {
             // Save user data to local storage
             localStorage.setItem("user", JSON.stringify(userData));
 
-            alert("Login successful!");
-            window.location.href = "profile.html"; // Redirect to homepage
+            alert("Email Sent, Check for OTP")
+            alert('Do  not reload the page or else the OTP will be reset')
+           
           } else {
             console.log("No user data found");
-            alert("User data not found. Please register again.");
+            alert("User data not found. Please Sign Up again.");
           }
         })
         .catch((error) => {

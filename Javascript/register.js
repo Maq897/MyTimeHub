@@ -15,7 +15,7 @@ const firebaseConfig = {
     messagingSenderId: "987808044688",
     appId: "1:987808044688:web:38ca9171817d6a2ab12a15",
     measurementId: "G-QNQEKK1V6Q"
-  };
+};
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
@@ -35,12 +35,14 @@ document.getElementById("registerButton").addEventListener("click", function () 
       const user = userCredential.user;
       console.log("User registered:", user);
 
-      // Store additional user data in Firebase Database
+      // Store additional user data + starter docs and notes
       set(ref(database, "users/" + user.uid), {
         firstName: firstName,
         lastName: lastName,
         username: username,
         email: email,
+        docs: {},
+        notes: {}
       })
         .then(() => {
           alert("User registered successfully!");
@@ -56,3 +58,4 @@ document.getElementById("registerButton").addEventListener("click", function () 
       alert("Registration failed: " + error.message);
     });
 });
+

@@ -129,6 +129,13 @@
     const notedDiv = document.querySelector('.todoContainer')
     notedDiv.style.display = 'block'
   }
+  
+window.addEventListener('keydown', event => {
+  if (event.key.startsWith('F12')) {
+      alert('You are not allowed to open this console. this is a tool intended for Developers')
+      event.preventDefault();
+  }
+});
 </script>
 </body>
 </html>
