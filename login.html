@@ -17,8 +17,8 @@
         <input type="email" id="email" placeholder="Email" autocomplete="off" required>
         <input type="password" id="password" placeholder="Password" required>
         <input type="text" id="OTP" placeholder="XXXXXXXXXXXXXXX" required style="display: none;">
-        <button id="loginButton" onclick="sendEmail()" style="display: block;">Send OTP</button>
-        <button id="checkOTPbutton" style="display: none;" onclick="checkOTP()">Login</button>
+        <button id="checkOTPbutton" onclick="sendEmail()" style="display: block;">Send OTP</button>
+        <button id="loginButton" style="display: none;">Login</button>
         <div class="acc-switch"><p>Don't have an account? <a href="register.html">Register</a></p></div>
     </div>
 </body>
@@ -39,24 +39,13 @@
             }
             return otp;
         }
-
-        const OTP = generateAlphaNumericOTP(6)
-
-        function checkOTP() {
-            const otpInp = document.getElementById('OTP')
-            if(otpInp.value === OTP) {
-                alert('Login Succesful')
-                document.getElementById('loginButton').remove()
-                const con = document.getElementById('container')
-                window.location.href = 'profile.html'
-            } else {
-                alert('Wrong OTP')
-            }
-        }
+        
+        const OTP = generateAlphaNumericOTP(6);
 
         (function() {
         emailjs.init("fA-1ghRJOmD7ZPuRN"); 
         })();
+
         function sendEmail() {
             const now = new Date();            
             const date = now.toISOString().split("T")[0];       // "2025-04-25"
@@ -64,30 +53,29 @@
             const time = `${date} ${tim}`
             
 
-            setTimeout(()=> {
-                generateAlphaNumericOTP(6)
-            },60000 * 15)
-
             emailjs.send("service_1z1dmsj","template_vahoytd", {
             to_email: document.getElementById('email').value,
             time: time,
             OTP: OTP,
-
         }).then(function(response) {
-            console.log("SUCCESS!", response.status, response.text);
-            document.getElementById("loginButton").style.display = 'none'
+            console.log("SUCCESS!", response.status, response.text);            
+            alert("Email Sent, Check for OTP")
+            alert('Do not reload the page or else the OTP will be reset')
+            document.getElementById('checkOTPbutton').style.display = 'none'
+            document.getElementById('loginButton').style.display = 'block'
             document.getElementById('OTP').style.display = 'block'
-            document.getElementById('checkOTPbutton').style.display = 'block'
         }, function(error) {
             console.log("FAILED...", error);
         });
     }
     
-        window.addEventListener('keydown', event => {
-            if (event.key.startsWith('F12')) {
-                alert('You are not allowed to open this console. this is a tool intended for Developers')
-                event.preventDefault();
-            }
-        });
+    window.addEventListener('keydown', event => {
+    if (event.key.startsWith('F12') || event.ctrlKey && event.shiftKey && event.key === 'I' || event.ctrlKey && event.shiftKey && event.key === 'C') {
+        alert('You are not allowed to open this console. this is a tool intended for Developers')
+        alert('hehe')
+        console.log("%cSTOP you're not supposed to open this,. Anything you say or do will be used againbst you. I am watching you... hehe")
+        event.preventDefault();
+    }
+   });
     </script>
 </html>

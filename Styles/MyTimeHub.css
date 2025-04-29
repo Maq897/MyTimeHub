@@ -362,3 +362,42 @@ nav a.accent-link {
   flex-direction: column;
   row-gap: 5px;
 }
+.mainierStuff {
+  margin-top: 20px;
+  position: absolute;
+  width: 100%;
+  height: fit-content;
+  justify-content: center;
+  display: flex;
+  flex-direction: row;
+  column-gap: 5px;
+  row-gap: 5px;
+  flex-wrap: wrap;
+}
+.mainierStuff div{
+  height: 250px;
+  width: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: var(--accent-color);
+  padding: 7px;
+  border-radius: 5px;
+  transition: transform 0.2s ease-in-out;
+}
+.mainierStuff div svg{
+  height: 100px;
+  width:100px;
+}
+.mainierStuff div span {
+  font-size: large;
+}
+.mainierStuff div hr{
+  width: 100%;
+  margin-bottom: 5px
+}
+.mainierStuff div:hover{
+  transform: scale(1.1) rotate(1deg);
+  border: 1px solid whitesmoke;
+}

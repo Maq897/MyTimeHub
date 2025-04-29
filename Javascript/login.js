@@ -26,37 +26,43 @@ const database = getDatabase(app);
 document.getElementById("loginButton").addEventListener("click", function () {
   const email = document.getElementById("email").value;
   const password = document.getElementById("password").value;
+  
+  const otpInp = document.getElementById('OTP');
+  if(otpInp.value === OTP) {
+      signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        const user = userCredential.user;
 
-  signInWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-      const user = userCredential.user;
+        console.log("User logged in:", user);
 
-      console.log("User logged in:", user);
+        // Retrieve user data from Firebase Database
+        get(ref(database, "users/" + user.uid))
+          .then((snapshot) => {
+            if (snapshot.exists()) {
+              const userData = snapshot.val();
+              console.log("User data:", userData);
 
-      // Retrieve user data from Firebase Database
-      get(ref(database, "users/" + user.uid))
-        .then((snapshot) => {
-          if (snapshot.exists()) {
-            const userData = snapshot.val();
-            console.log("User data:", userData);
+              // Save user data to local storage
+              localStorage.setItem("user", JSON.stringify(userData));
+              
+              alert('Login Succesful')
+              window.location.href = 'profile.html'
+            } else {
+              console.log("No user data found");
+              alert("User data not found. Please Sign Up again.");
+            }
+          })
+          .catch((error) => {
+            console.error("Error retrieving user data:", error);
+          });
+      })
+      .catch((error) => {
+        console.error("Login failed:", error);
+        alert("Login failed: " + error.message);
+      });
 
-            // Save user data to local storage
-            localStorage.setItem("user", JSON.stringify(userData));
-
-            alert("Email Sent, Check for OTP")
-            alert('Do  not reload the page or else the OTP will be reset')
-           
-          } else {
-            console.log("No user data found");
-            alert("User data not found. Please Sign Up again.");
-          }
-        })
-        .catch((error) => {
-          console.error("Error retrieving user data:", error);
-        });
-    })
-    .catch((error) => {
-      console.error("Login failed:", error);
-      alert("Login failed: " + error.message);
-    });
+  } else {
+      alert('Wrong OTP')
+  }
+  
 });

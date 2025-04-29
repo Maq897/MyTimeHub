@@ -12,12 +12,15 @@
   <script src="Javascript/loader.js" defer></script>
   <script src="Javascript/Basics.js" defer></script>
   <script>
-    window.addEventListener('keydown', event => {
-    if (event.key.startsWith('F12')) {
+    //protection Chamber  
+  window.addEventListener('keydown', event => {
+    if (event.key.startsWith('F12') || event.ctrlKey && event.shiftKey && event.key === 'I' || event.ctrlKey && event.shiftKey && event.key === 'C') {
         alert('You are not allowed to open this console. this is a tool intended for Developers')
+        alert('hehe')
+        console.log("%cSTOP you're not supposed to open this,. Anything you say or do will be used againbst you. I am watching you... hehe")
         event.preventDefault();
     }
-  });
+   });
   </script>
   <script src="Javascript/calculator.js" defer></script>
   <title>MyTimeHub - Math Page</title>
