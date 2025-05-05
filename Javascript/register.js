@@ -41,8 +41,18 @@ document.getElementById("registerButton").addEventListener("click", function () 
         lastName: lastName,
         username: username,
         email: email,
-        docs: {},
-        notes: {}
+
+        docs: {
+          title: {
+            content: 'Just 1'
+          }
+        },
+        notes: {
+          title: {
+            content: 'Just 1'
+          }
+        }
+        
       })
         .then(() => {
           alert("User registered successfully!");

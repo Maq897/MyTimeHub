@@ -1,0 +1,48 @@
+:root {
+  --primary-color: #11121a;
+  --hover-color: #272832;
+  --accent-color: #0071FF;
+  --third-background: #2c2c2c; /*apparently the "--" creates any variable*/
+}
+details {
+  display: flex;
+  flex-direction: column;
+  row-gap: 5px;
+  width: 100%;
+}
+details #sum{
+  background-color: var(--accent-color);
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  padding:7px;
+  font-weight: bold;
+  cursor: pointer;
+  width: 120px;
+  height: calc(fit-content + 50px);
+  transition: width 0.5s ease
+}
+details input {
+  font-size: 20px;
+  font-weight: bold;
+  padding: 7px;
+  margin-top: 5px;
+  width: 95%;
+  border-radius: 5px;
+}
+details button{
+  font-size: 20px;
+  font-weight: bold;
+  padding: 7px;
+  margin-top: 5px;
+  width: 5%;
+  border-radius: 5px;
+  cursor: pointer;
+}
+details p{
+  height: 100%;
+  background-color: white;
+  color: black;
+  padding: 7px;
+  min-height: 300px;
+  border-radius: 5px;
+}
