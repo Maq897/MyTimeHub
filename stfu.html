@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    :root {
+      --primary-color: #11121a;
+      --hover-color: #272832;
+      --accent-color: #0071FF;
+      --text-color: #c9c9c9;
+      --third-background: #2c2c2c; /*apparently the "--" creates any variable*/
+    }
+    body{
+      height: 100%;
+      width: 45%;
+      margin-left: 50%;
+      background-color: var(--primary-color);
+      color: var(--text-color);
+      overflow-x: hidden;
+    }
+    #toConsole {
+      font-weight: bold;
+      font-size: 20px;
+      position: absolute;
+      top: -10px;
+      left: 10px;
+      display: inline-block;
+      margin-left: 0px;
+      background-color: #2a2d315e;
+      width: 45%;
+      outline: none;
+      height: fit-content;
+      min-height: calc(100% - 25px);
+      border-radius: 5px;
+      padding: 7px;
+    }
+    #toConsole::after {
+      content: "";                        /* REQUIRED for ::after to work */
+      background-color: var(--accent-color);
+      z-index: 10;
+      height: 100%;
+      width: 5px;
+      position: fixed;
+      bottom: 0;
+      right: 50%;
+      border: 0.1px solid white;
+    }
+    #body {
+      height: 100%;
+      width: 100%;
+      background-color: var(--primary-color);
+      color: var(--text-color);
+      overflow-x: hidden;
+    }
+    #send{
+      position: fixed;
+      background-color: var(--third-background);
+      color: var(--text-color);
+      border: 2px solid var(--hover-color);
+      padding: 7px;
+      top: 0;
+      right: calc(50% + 7px);
+      z-index: 1;
+      cursor: pointer;
+      border-bottom-left-radius: 15px;
+    }
+    #daHtmlPart {
+      position: fixed;
+      top: 0;
+      right: 20%;
+    }
+  </style>
+</head>
+<br>
+<p contenteditable="true" id="toConsole"></p><button id="send" onclick="toConsole()"><svg xmlns="http://www.w3.org/2000/svg" height="30px" viewBox="0 -960 960 960" width="30px" fill="#e3e3e3"><path d="M320-200v-560l440 280-440 280Zm80-280Zm0 134 210-134-210-134v268Z"/></svg></button>
+<label id="daHtmlPart">Html Output</label>
+<body>
+   <div id="body">some text</div>
+</body>
+
+<script>
+</script>
+<script>
+    const Body = document.getElementById("body");
+    const create = {
+    button: (text) => {
+      let el = document.createElement('button');
+      if (text === undefined) {
+        el.textContent = 'Button Element'
+        el.setAttribute('contenteditable', true)
+      } else {
+        el.innerHTML = text;
+      }
+      document.body.appendChild(el); 
+    },
+    div:(text) => {
+      let el = document.createElement('div');
+      if (text === undefined) {
+        el.textContent = 'Div Element'
+        el.setAttribute('contenteditable', true)
+      } 
+      else {
+        el.innerHTML = text;
+      }
+      document.body.appendChild(el);
+    }, 
+    p: (text) => {
+      let el = document.createElement('p');
+      if (text === undefined) {
+        el.textContent = 'Paragraph Element'
+        el.setAttribute('contenteditable', true)
+      } else {
+        el.innerHTML = text;
+      }
+      document.body.appendChild(el); 
+    },
+  }
+  const clear = () => {
+    document.body.innerHTML = ''
+  }
+  const mainP = document.getElementById('toConsole');
+
+  // mainP.addEventListener("keydown", (event) => {
+  //     const selectionStart = window.getSelection().anchorOffset;
+
+  //     if (event.key === "(" || event.key === "'" || event.key === '"') {
+  //         event.preventDefault(); // Prevent default character input
+  //         const closingChar = event.key === "(" ? ")" : event.key;
+  //         const text = mainP.innerHTML;
+          
+  //         // Insert the character and its closing pair at the cursor position
+  //         mainP.innerHTML = text.slice(0, selectionStart) + event.key + closingChar + text.slice(selectionStart);
+
+  //         // Move the cursor back inside the parentheses
+  //         setTimeout(() => {
+  //             const range = document.createRange();
+  //             const selection = window.getSelection();
+  //             range.setStart(mainP.firstChild, selectionStart + 1);
+  //             range.collapse(true);
+  //             selection.removeAllRanges();
+  //             selection.addRange(range);
+  //         }, 0);
+  //     }
+  // });
+
+  const toConsole = () => {
+    const p = document.getElementById('toConsole');
+    const Body = document.getElementById("body");
+    try {
+      if (p.innerText.includes("document.body.innerHTML")){
+        throw new Error('Invalid Html assignment')
+      } else {
+        const result = new Function(p.innerText)();
+        Body.innerHTML = result;
+      }
+    } catch (error) {
+          console.error('Error in execution:', error);
+      }
+    };
+</script>
+<script>
+  const funkyConsole = {
+    log: (param,color1,color2)=>{
+      for(c of param) {
+        if (color1 && color2 !== '') {
+          console.log(`%c${c}   ${c}`, `color:${color1}`)
+          console.log(`%c  ${c}`, `color:${color2}`)
+        } else {
+          console.log(`${c}   ${c}`)
+          console.log(`  ${c}`)
+        }
+      }
+    },
+    clear: (param)=>{
+      console.clear()
+      console.log(param)
+    },
+    err: (daWarning)=>{
+      console.log(`%c${daWarning}`, "color: red; font-size: 50px; border: 1px solid red;")
+    },
+
+  }
+</script>
+</html>
