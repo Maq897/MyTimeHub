@@ -78,6 +78,13 @@
 
       <div class="login-container" id="login-container">
       </div>
+      <button style="cursor: pointer; background-color: red; color: white; font-weight: bold; height: fit-content; width: fit-content; padding: 10px; border: 0px solid black; border-radius: 15px;" onclick="
+      const di = ()=>{
+        localStorage.removeItem('user')
+        window.location.href = 'login.html'
+      }; 
+      di()
+      ">Log Out</button>
     </div>
   </main>
 
