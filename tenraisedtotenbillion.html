@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Big Number Display</title>
+  <style>
+    body {
+      background-color: #111;
+      color: #0f0;
+      font-family: "Courier New", monospace;
+      padding: 20px;
+    }
+
+    #numberBox {
+      white-space: pre-wrap;
+      word-break: break-word;
+      font-size: 1.2em;
+      line-height: 1.5;
+      border: 2px solid #0f0;
+      padding: 15px;
+      border-radius: 8px;
+      background-color: #000;
+      max-height: 70vh;
+      overflow-y: auto;
+    }
+    #loader {
+      width: 300px;
+      height: 300px;
+      border: 2px solid #0f0;
+      border-radius: 10px;
+      animation: roll 3s ease-in-out;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%,-50%);
+    }
+    @keyframes roll {
+      from{
+        transform: translateZ(0deg);
+      }
+      to {
+        transform: translateZ(180deg);
+      }
+    }
+  </style>
+</head>
+<body>
+  <h2>Big Number Generator</h2>
+  <div id="numberBox">Loading...</div>
+  <!-- <div id="loader"></div> -->
+
+  <script>
+
+    function OverloadYourPhone() {
+      function displayLargeNumber(zeroCount = 1_000_000) {
+        const numberBox = document.getElementById("numberBox");
+        numberBox.textContent += "0".repeat(zeroCount);
+      }
+      
+      setTimeout(() => {
+        const nB = document.getElementById("numberBox");
+        nB.innerHTML = "1";
+
+        // Start controlled interval loop
+        let c = 0;
+        const max = 1_000_000;
+
+        const intervalId = setInterval(() => {
+          if (c >= max) {
+            clearInterval(intervalId);
+            return;
+          }
+          displayLargeNumber(1000);
+          c++;
+        }, 100);
+      }, 500);
+    }
+
+    alert("Good Evening!");
+
+    const wantsToSee = confirm("Would you like to see 1 followed by 10 BILLION zeroes?");
+    const isSure = wantsToSee && confirm("Are you sure you want to overload your phone?");
+    
+    if (isSure) {
+      OverloadYourPhone()
+    } else if (!isSure) {
+      alert("ok");
+      window.location.href = "https://mytimehub.netlify.app"
+    }
+  </script>
+</body>
+</html>

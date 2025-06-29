@@ -2,15 +2,16 @@
 :root {
   --primary-color: #11121a;
   --hover-color: #272832;
-  --accent-color: #0071FF;
+  --accent-color: #863bff;
   --text-color: #c9c9c9;
-  --third-background: #2c2c2c; /*apparently the "--" creates any variable*/
+  --third-background: #464646; /*apparently the "--" creates any variable*/
 }
-
 html{
   font-family: sans-serif;
   color: var(--text-color);
   overflow-y: auto;
+  height: 100%;
+  overflow: hidden;
 }
 html::-webkit-scrollbar {
   width: 5px;
@@ -31,7 +32,10 @@ body{
   max-height: 100dvh;
   width: 100%;
   background-color: var(--primary-color);
-  font-family: sans-serif;
+  user-select: none;
+  font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  height: 100%;
+  overflow: hidden;
 }
 
 
@@ -48,6 +52,7 @@ body{
   overflow-y: auto;
   overflow-x: hidden;
   transition: height 0.5s ease;
+  padding-bottom: 20px;
 }
 
 #main::-webkit-scrollbar {
@@ -66,6 +71,7 @@ body{
   padding: min(15px, 5%);
   border-radius: 5px;
   background: var(--third-background);
+  top: 20px;
 }
 
 
@@ -218,8 +224,6 @@ nav a.accent-link {
 
 
 
-
-
 /* loader */
 
 #loading-screen {
@@ -253,10 +257,6 @@ nav a.accent-link {
 }
 
 
-
-
-
-
 /* for da clock */
 .clock {
   font-size: 3rem;
@@ -280,6 +280,8 @@ nav a.accent-link {
   max-width: 50%;
   height: fit-content;
   margin-top: 10px;
+  position: relative;
+  top: 20px;
   margin-right: auto;
   background-color: var(--accent-color);
   border: 1px solid var(--accent-color);
@@ -363,7 +365,7 @@ nav a.accent-link {
   row-gap: 5px;
 }
 .mainierStuff {
-  margin-top: 20px;
+  margin-top: 28px;
   position: absolute;
   width: 100%;
   height: fit-content;
@@ -374,8 +376,15 @@ nav a.accent-link {
   row-gap: 5px;
   flex-wrap: wrap;
 }
+
+.mainierStuff a {
+  color: var(--text-color);
+  text-decoration: none;
+  font-weight: bold;
+}
+
 .mainierStuff div{
-  height: 250px;
+  height: 200px;
   width: 200px;
   display: flex;
   flex-direction: column;
@@ -384,7 +393,7 @@ nav a.accent-link {
   background: var(--accent-color);
   padding: 7px;
   border-radius: 5px;
-  transition: transform 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
 }
 .mainierStuff div svg{
   height: 100px;
@@ -393,11 +402,64 @@ nav a.accent-link {
 .mainierStuff div span {
   font-size: large;
 }
-.mainierStuff div hr{
-  width: 100%;
-  margin-bottom: 5px
-}
 .mainierStuff div:hover{
-  transform: scale(1.1) rotate(1deg);
   border: 1px solid whitesmoke;
+  animation: hoverlover 0.5s linear forwards;
+  transition: all 0.3s;
+}
+@keyframes hoverlover {
+  0% { transform: rotate(0deg) scale(1); }
+  33% { transform: rotate(2deg) scale(1.03); }
+  66% { transform: rotate(-2deg); }
+  99% { transform: rotate(0deg); }
+}
+#box {
+  position: absolute;
+  top: 120px;
+  left: 120px;
+  max-width: 215px;
+  min-width: 100px;
+  width: 30%;
+  height: 150px;
+  background-color: var(--accent-color);
+  color: white;
+  font-family: sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: grab;
+  border: 1px solid var(--hover-color);
+  user-select: none;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+#box button {
+  color: black;
+  background: none;
+  border: 0px solid black;
+  font-weight: bold;
+  position: absolute;
+  top: 4px;
+  left: 4px;
+}
+#box button:hover{  
+  box-shadow: 0.2px 0.2px;
+  cursor: pointer;
+}
+#tools {
+  background-color: var(--accent-color);
+  position: relative;
+  border: 1px solid black;
+  border-top-left-radius: 5px;
+  margin-left: calc(100% - 30px);
+  bottom: 0px;
+  padding: 3.5px;
+  height: fit-content;
+  min-height: 35px;
+  max-height: 40px;
+  max-width: 300px;
+  min-width: 30px;
+
+  width: fit-content;
+
 }
