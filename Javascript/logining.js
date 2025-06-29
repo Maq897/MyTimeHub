@@ -1,6 +1,7 @@
 function loginOrNot() {
   const userData = localStorage.getItem('user')
-  if(userData === null) {
+  const id = localStorage.getItem('UserId')
+  if(!userData && !id) {
     window.location.href = 'login.html'
   } 
 }

@@ -1,76 +1,93 @@
-// Add a new note when the "Add Note" button is clicked
-document.getElementById('add-note').addEventListener('click', () => addNote());
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.5.0/firebase-app.js";
+import { getDatabase, ref, get, set } from "https://www.gstatic.com/firebasejs/11.5.0/firebase-database.js";
+import { getAuth, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.5.0/firebase-auth.js";
 
-// Load notes from localStorage when the page is fully loaded
-window.addEventListener('DOMContentLoaded', loadNotes);
+const firebaseConfig = {
+  apiKey: "AIzaSyBWefNr7a4k-iIJ_pwBK8CTol6WoqqwX2Q",
+  authDomain: "mytimehub-574cb.firebaseapp.com",
+  projectId: "mytimehub-574cb",
+  databaseURL: "https://mytimehub-574cb-default-rtdb.asia-southeast1.firebasedatabase.app/",
+  storageBucket: "mytimehub-574cb.appspot.com",
+  messagingSenderId: "987808044688",
+  appId: "1:987808044688:web:38ca9171817d6a2ab12a15",
+  measurementId: "G-QNQEKK1V6Q"
+};
 
-/**
- * Adds a new note to the DOM and sets up event listeners.
- * @param {string} content - The content of the new note (optional).
- */
-function addNote(content = '') {
-    // Create the note container
-    const note = document.createElement('div');
-    note.classList.add('note');
-    note.id = 'noteId'
-    // Create the textarea for the note content
-    const textarea = document.createElement('textarea');
-    textarea.value = content; // Set initial content, if provided
-    textarea.addEventListener('input', updateLocalStorage); // Save changes to localStorage
-    note.appendChild(textarea);
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
+const auth = getAuth();
 
-    // Create the delete button
-    const deleteBtn = document.createElement('span');
-    deleteBtn.textContent = 'X';
-    deleteBtn.classList.add('delete');
-    deleteBtn.addEventListener('click', () => {
-            note.remove(); // Remove the note
-            updateLocalStorage(); // Update localStorage
-            check();
-    });
-    
-    note.appendChild(deleteBtn);
+signInAnonymously(auth)
+  .then(() => console.log("Signed in anonymously"))
+  .catch(err => console.error("Auth error:", err));
 
-    // Add the note to the notes container
-    document.getElementById('notes').appendChild(note);
+onAuthStateChanged(auth, user => {
+  if (!user) return;
 
-    // Ensure the textarea does not receive immediate focus
-    textarea.blur();
-
-    // Update localStorage immediately after adding a new note
-    updateLocalStorage();
-}
-
-/**
- * Updates the localStorage with the current state of all notes.
- */
-function updateLocalStorage() {
-    const notes = Array.from(document.querySelectorAll('.note textarea')).map(textarea => ({
-        content: textarea.value
-    }));
-    localStorage.setItem('notes', JSON.stringify(notes));
-}
-
-/**
- * Loads notes from localStorage and adds them to the DOM.
- */
-function loadNotes() {
-    try {
-        // Parse notes from localStorage or initialize with an empty array
-        const savedNotes = JSON.parse(localStorage.getItem('notes')) || [];
-
-        // Add each saved note to the DOM
-        savedNotes.forEach(note => addNote(note.content));
-    } catch (error) {
-        console.error('Error loading notes from localStorage:', error);
-    }
-}
-
-function check() {  
-  const notedDiv = document.querySelector('.todoContainer');
-  if (document.getElementById('notes').innerHTML === '') {
-    notedDiv.style.display = 'none';
-  } else {
-    notedDiv.style.display = 'block';
+  const userId = user.uid;
+  const notesRef = ref(db, `users/${userId}/notes`);
+  if (!notesRef) {
+    set(notesRef)
   }
-}
+  const container = document.getElementById("notes");
+  const addButton = document.getElementById("add-note");
+
+  async function loadNotes() {
+    const snapshot = await get(notesRef);
+    const notes = snapshot.exists() ? snapshot.val() : [];
+    renderNotes(notes);
+  }
+
+  async function deleteNote(index) {
+    const snapshot = await get(notesRef);
+    const notes = snapshot.exists() ? snapshot.val() : [];
+    notes.splice(index, 1);
+    await set(notesRef, notes);
+    renderNotes(notes);
+  }
+
+  async function addNote() {
+    const snapshot = await get(notesRef);
+    const notes = snapshot.exists() ? snapshot.val() : [];
+    notes.push({ content: `Note @ ${new Date().toLocaleTimeString()}` });
+    await set(notesRef, notes);
+    renderNotes(notes);
+  }
+
+  function renderNotes(notes) {
+    container.innerHTML = "";
+    notes.forEach((note, index) => {
+      const noteDiv = document.createElement("div");
+      noteDiv.className = "note";
+
+      const textarea = document.createElement("textarea");
+      textarea.value = note.content;
+      
+
+      const deleteBtn = document.createElement("button");
+      deleteBtn.className = "delete";
+      deleteBtn.textContent = "✖";
+      deleteBtn.onclick = () => deleteNote(index);
+
+      noteDiv.appendChild(textarea);
+      noteDiv.appendChild(deleteBtn);
+      container.appendChild(noteDiv);
+    });
+  }
+
+  addButton.addEventListener("click", addNote);
+  loadNotes();
+});
+
+document.getElementById("save-all").addEventListener("click", async () => {
+  const container = document.getElementById("notes");
+  const textareas = container.querySelectorAll("textarea");
+
+  const updatedNotes = Array.from(textareas).map(t => ({
+    content: t.value
+  }));
+
+  const notesRef = ref(db, `users/${auth.currentUser.uid}/notes`);
+  await set(notesRef, updatedNotes);
+  console.log("All notes saved!");
+});

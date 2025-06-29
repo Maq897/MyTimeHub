@@ -12,7 +12,7 @@
   <script src="Javascript/loader.js" defer></script>
   <script src="Javascript/Basics.js" defer></script>
   <script src="https://maq897.github.io/funkyConsole/index.js"></script>
-
+  <script type="module" src="Javascript/todo.js" defer></script>
   <title>MyTimeHub</title>
 </head>
 <body>
@@ -146,14 +146,25 @@
   </main>
 
   <div id="box">
-    <button onclick="
+    <div id="innerBox">
+      <button onclick="
       document.getElementById('box').style.display= 'none'
-      ">X</button><br>
+      " style="top: 4px; left: 4px;">X</button>
+      <button id="save-all">💾 Save All</button>
+
+      <button id="add-note">Add</button>
+    </div>
+      <div class="todoContainer">
+        <div id="notes">
+        </div>
+      </div>
   </div>
 
   <div id="tools">
-    
-    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M200-200h560v-367L567-760H200v560Zm0 80q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h400l240 240v400q0 33-23.5 56.5T760-120H200Zm80-160h400v-80H280v80Zm0-160h400v-80H280v80Zm0-160h280v-80H280v80Zm-80 400v-560 560Z"/></svg>
+    <div onclick=" box.style.display = box.style.display === 'none' ? 'flex' : 'none'; ">
+
+      <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M200-200h560v-367L567-760H200v560Zm0 80q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h400l240 240v400q0 33-23.5 56.5T760-120H200Zm80-160h400v-80H280v80Zm0-160h400v-80H280v80Zm0-160h280v-80H280v80Zm-80 400v-560 560Z"/></svg>
+    </div>
   </div>
 
   <script>
@@ -189,15 +200,17 @@
     const notedDiv = document.querySelector('.todoContainer')
     notedDiv.style.display = 'block'
   }
-  //protection Chamber  
-  // window.addEventListener('keydown', event => {
-  //   if (event.key.startsWith('F12') || event.ctrlKey && event.shiftKey && event.key === 'I' || event.ctrlKey && event.shiftKey && event.key === 'C') {
-  //       alert('You are not allowed to open this console. this is a tool intended for Developers')
-  //       alert('hehe')
-  //       console.log("%cSTOP you're not supposed to open this,. Anything you say or do will be used againbst you. I am watching you... hehe")
-  //       event.preventDefault();
-  //   }
-  //  });
+  window.addEventListener('keydown', event => {
+    if (event.key.startsWith('F12') || event.ctrlKey && event.shiftKey && event.key === 'I' || event.ctrlKey && event.shiftKey && event.key === 'C' || event.ctrlKey && event.shiftKey && event.key === 'J') {
+        alert('You are not allowed to open this console. this is a tool intended for Developers')
+        alert('hehe')
+        console.log("%cSTOP you're not supposed to open this,. Anything you say or do will be used againbst you. I am watching you... hehe", "color:red")
+        event.preventDefault();
+    }
+    window.addEventListener("contextmenu", function (event) {
+      event.preventDefault(); // Optional: prevent the default right-click menu
+    });
+   });
 
 </script>
 
@@ -226,6 +239,9 @@
       isDragging = false;
       box.style.cursor = "grab";
     });
-  </script>
+
+    
+</script>
+
 </body>
 </html>
