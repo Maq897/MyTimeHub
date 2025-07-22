@@ -1,16 +1,17 @@
 function updateTime() {
   const timeElement = document.getElementById('time');
-  let now = new Date();
-  let hours = now.getHours().toString().padStart(2, '0');
-  let minutes = now.getMinutes().toString().padStart(2, '0');
+  if (timeElement) {
+    let now = new Date();
+    let hours = now.getHours().toString().padStart(2, '0');
+    let minutes = now.getMinutes().toString().padStart(2, '0');
 
-  if(hours > 12) {
-    hours -= 12
-    timeElement.innerHTML = `${hours}:${minutes} PM`
-  } else {
-    timeElement.innerHTML = `${hours}:${minutes} AM`
+    if(hours > 12) {
+      hours -= 12
+      timeElement.innerHTML = `${hours}:${minutes} PM`
+    } else {
+      timeElement.innerHTML = `${hours}:${minutes} AM`
+    }
   }
-
 }
 
 setInterval(updateTime, 1000);

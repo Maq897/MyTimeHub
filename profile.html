@@ -74,11 +74,11 @@
 
   <main id="profileMain">
     <div class="innermain">
-      <h1>Profile</h1>
+      <h1 class="title">Profile</h1>
 
       <div class="login-container" id="login-container">
       </div>
-      <button style="cursor: pointer; background-color: red; color: white; font-weight: bold; height: fit-content; width: fit-content; padding: 10px; border: 0px solid black; border-radius: 15px;" onclick="
+      <button onclick="
       const di = ()=>{
         localStorage.removeItem('user')
         window.location.href = 'login.html'
@@ -100,10 +100,12 @@
     } else {
       const loginContainer = document.getElementById('login-container')
       loginContainer.innerHTML = `
-      <p>Name: ${actualData.firstName}</p><br>
-      <p>G-Mail: ${actualData.email}</p><br>
-      <p>Username: ${actualData.username}</p>
-      <p style="margin-top: 5px"><a href="register.html">Add Account</a></p>`
+      <div class="userDetails">
+        <p><b>Name:</b> ${actualData.firstName}</p>
+        <p><b>Account:</b> ${actualData.email}</p>
+        <p><b>Username:</b> ${actualData.username}</p>
+      </div>`
+      /* <p class="addAcc"><a href="register.html">Add Account</a></p> || --ADD IF ITS EVEN USEFUL --|| */
     }      
   }
   
