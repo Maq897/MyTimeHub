@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Digital India Wordle</title>
+  <style>
+    html, body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #e0f7fa, #ffffff);
+      text-align: center;
+      padding: 30px;
+      margin: 0;
+      -webkit-user-select: none;
+    }
+
+    h1 {
+      color: #00796b;
+      font-size: 32px;
+      margin-bottom: 20px;
+      text-shadow: 1px 1px 2px #b2dfdb;
+    }
+
+    .guess-row {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin: 15px 0;
+    }
+
+    .guess-row input {
+      width: 50px;
+      height: 50px;
+      font-size: 24px;
+      text-align: center;
+      text-transform: uppercase;
+      border: 2px solid #00796b;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    .guess-row input:focus {
+      outline: none;
+      background-color: #e0f2f1;
+      transform: scale(1.05);
+    }
+
+    .correct {
+      background-color: #4caf50;
+      color: white;
+      border-color: #388e3c;
+    }
+
+    .present {
+      background-color: #ffeb3b;
+      color: black;
+      border-color: #fbc02d;
+    }
+
+    .absent {
+      background-color: #cfd8dc;
+      color: #37474f;
+      border-color: #90a4ae;
+    }
+
+    button {
+      background-color: #00796b;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      font-size: 18px;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-top: 10px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #004d40;
+    }
+
+    #message {
+      font-size: 18px;
+      margin-top: 15px;
+      font-weight: bold;
+      color: #d32f2f;
+      transition: opacity 0.3s ease;
+    }
+    #linker {
+      text-decoration: none;
+      color: white;
+      font-weight: 600;
+      position: fixed;
+      top: 1%;
+      left: 1%;
+      border: 2px solid black;
+      border-radius: 5px;
+      padding: 3px;
+      transition: all ease-in-out .1s;
+    }
+    #linker:hover {
+      transform: scale(1.1);
+    }
+  </style>
+
+</head>
+<body>
+  <a target="_self" href="https://mytimehub.netlify.app" id="linker">⬅️ Visit orginal site!</a>
+  <p>
+    Hello there!
+    this is a site made by Muhammad Abul Qasim.s for his ICT-Art integrated project. <br>
+    The site aims to reflect the cool UI designed reflecting the idea of an art-integrated ICT project! <br>
+    Instructions: <br>
+    - Guess the word by typing in the given boxes
+    - Click the buttons to either <b>Submit</b> your guess or <b>Show the answer</b>    
+  </p>
+  <h1>ICT Art-Integrated Project - Wordle</h1>
+  <h3 id="header"> <br> </h1>
+  <div id="grid" class="guess-row"></div>
+  <div id="message"></div>
+  <button onclick="checkGuess()">Submit</button>
+  <button onclick="function cli() {
+    document.getElementById('message').innerHTML = 'The answer is: Digital'
+  }; cli()">Show Answer</button>
+  <script>
+const target = "DIGITAL";
+const grid = document.getElementById("grid");
+const message = document.getElementById("message");
+let currentInputs = [];
+let tries = 0
+function createRow() {
+  const row = document.createElement("div");
+  row.className = "guess-row";
+  currentInputs = [];
+  if (tries >= 6) {
+    document.getElementById('message').innerHTML = 'Out of tries, The word was <b>"Digital"</b>'
+    return;
+  }
+  tries++
+  document.getElementById("header").innerHTML = `<i>Tries (${tries}/6)</i>` 
+  for (let i = 0; i < target.length; i++) {
+    const input = document.createElement("input");
+    input.maxLength = 1;
+    currentInputs.push(input);
+    row.appendChild(input);
+  }
+  document.body.insertBefore(row, message); // insert above message
+  row.scrollIntoView({ behavior: "smooth" });
+
+  // Auto-focus logic
+  currentInputs.forEach((input, index) => {
+    input.addEventListener("input", () => {
+      if (input.value && index < currentInputs.length - 1) {
+        currentInputs[index + 1].focus();
+      }
+    });
+
+    input.addEventListener("keydown", (e) => {
+      if (e.key === "Backspace" && !input.value && index > 0) {
+        currentInputs[index - 1].focus();
+      }
+    });
+  });
+
+  currentInputs[0].focus();
+}
+
+createRow();
+
+function checkGuess() {
+  const guess = currentInputs.map(i => i.value.toUpperCase());
+  const result = Array(target.length).fill("absent");
+  const used = Array(target.length).fill(false);
+
+  // First pass: correct letters
+  for (let i = 0; i < target.length; i++) {
+    if (guess[i] === target[i]) {
+      result[i] = "correct";
+      used[i] = true;
+    }
+  }
+
+  // Second pass: present letters
+  for (let i = 0; i < target.length; i++) {
+    if (result[i] === "correct") continue;
+    for (let j = 0; j < target.length; j++) {
+      if (!used[j] && guess[i] === target[j]) {
+        result[i] = "present";
+        used[j] = true;
+        break;
+      }
+    }
+  }
+
+  // Apply styles
+  for (let i = 0; i < target.length; i++) {
+    currentInputs[i].className = result[i];
+    currentInputs[i].disabled = true;
+  }
+
+  if (guess.join("") === target) {
+    message.textContent = "🎉 Correct! You guessed the word!";
+    message.style.color = "#388e3c";
+  } else {
+    message.textContent = "❌ Try again!";
+    message.style.color = "#d32f2f";
+    createRow();
+  }
+}
+</script>
+
+</body>
+</html>
